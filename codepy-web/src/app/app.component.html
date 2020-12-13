@@ -1,0 +1,31 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item nzIcon="home">
+        <a routerLink="/home">Home</a>
+      </li>
+      <li nz-submenu nzTitle="Project" nzIcon="setting">
+        <ul>
+          <li nz-menu-item>
+            <a [routerLink]="['/project']">Management</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-menu-item>
+        <a href="https://github.com/pipiliang/code.py" target="_blank" rel="noopener noreferrer">About</a>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="inner-content">
+      <!-- router -->
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+
+  <nz-footer>Code.py ©2020 Liang</nz-footer>
+</nz-layout>

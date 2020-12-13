@@ -1,0 +1,5 @@
+python_jsonrpc_server==0.4.0
+gevent==20.9.0
+Flask_Sockets==0.2.1
+Flask==1.1.2
+gevent_websocket==0.10.1

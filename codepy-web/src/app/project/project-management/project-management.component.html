@@ -1,0 +1,35 @@
+<!-- <nz-switch [(ngModel)]="loading"></nz-switch> -->
+
+<div nz-row [nzGutter]="8">
+    <div nz-col [nzSpan]="6">
+        <nz-card style="margin-top: 16px;" [nzHoverable]="false">
+            <div nz-card-grid [ngStyle]="gridStyle" style="height: 145px; line-height: 100px;" (click)="addProject()"> 
+                <i nz-icon nzType="plus" nzTheme="outline" style="font-size: 3em; color: gray;"></i>
+            </div>
+        </nz-card>
+    </div>
+    <div *ngFor="let project of projects" nz-col [nzSpan]="6">
+        <nz-card style="margin-top: 16px;" [nzHoverable]="true"
+            [nzActions]="[actionEdit, actionDelete, actionEllipsis]">
+            <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
+                <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="project.name"
+                    [nzDescription]="project.description">
+                </nz-card-meta>
+            </nz-skeleton>
+        </nz-card>
+    </div>
+</div>
+
+<ng-template #avatarTemplate>
+    <nz-avatar nzSrc="../../../assets/images/python_black.jpg">
+    </nz-avatar>
+</ng-template>
+<ng-template #actionEdit>
+    <i nz-icon nzType="edit"></i>
+</ng-template>
+<ng-template #actionDelete>
+    <i nz-icon nzType="delete"></i>
+</ng-template>
+<ng-template #actionEllipsis>
+    <i nz-icon nzType="ellipsis"></i>
+</ng-template>
