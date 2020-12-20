@@ -10,7 +10,7 @@ export class ProjectService {
 
   async getProjects(): Promise<any> {
     try {
-      return await this.http.get('http://192.168.1.106:3001/projects/').toPromise();
+      return await this.http.get('http://192.168.1.106:4201/projects/').toPromise();
     } catch (error) {
 
     }

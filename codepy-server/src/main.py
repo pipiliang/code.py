@@ -65,12 +65,12 @@ def hello():
 def handle_projects():
     if request.method == 'GET':
         return ProjectManager.get_projects()
-    else:
-        return None
+    if request.method == 'POST':
+        return ProjectManager.create_project(request)
 
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(
-        ('192.168.1.106', 3001), app, handler_class=WebSocketHandler)
+        ('192.168.1.106', 4201), app, handler_class=WebSocketHandler)
     print('code.py server start ...')
     server.serve_forever()

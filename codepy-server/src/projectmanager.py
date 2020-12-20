@@ -13,28 +13,20 @@ class ProjectManager():
         for f in os.listdir(base_dir):
             names.append({
                 'name': f,
-                'description': 'tesest'
+                'description': 'not implement...'
             })
         return json.dumps(names)
 
     @staticmethod
-    def create_project(name, description):
+    def create_project(request):
+        if not request.data:  # 检测是否有数据
+            return ('fail')
+        project = json.loads(request.data)
+        name = project.get('name')
         full_path = os.path.join(base_dir, name)
         if os.path.exists(full_path):
-            resp = Response("project already exist!", status=300) 
+            resp = Response("project already exist!", status=300)
             abort(resp)
         else:
             os.makedirs(full_path)
-            return json.dumps({
-                'name': name,
-                'description': description
-            })
-
-
-a = ProjectManager.get_projects()
-print(a)
-
-# a = ProjectManager.create_project("Test", "sadfsffsf")
-# print(a)
-
-
+            return json.dumps(project)
