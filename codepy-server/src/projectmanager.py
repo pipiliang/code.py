@@ -30,3 +30,17 @@ class ProjectManager():
         else:
             os.makedirs(full_path)
             return json.dumps(project)
+
+    @staticmethod
+    def delete_project(projectname):
+        full_path = os.path.join(base_dir, projectname)
+        if os.path.exists(full_path):
+            os.removedirs(full_path)
+            res = Response("OK", status=200)
+            # res.headers['Access-Control-Allow-Origin'] = '*'
+            # res.headers['Access-Control-Allow-Method'] = '*'
+            # res.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+            return res
+        else:
+            resp = Response("project not exist!", status=404)
+            abort(resp)

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProjectService } from './../../service/project.service'
 
 
@@ -15,9 +16,7 @@ export class ProjectManagementComponent implements OnInit {
     textAlign: 'center'
   };
 
-  projectService: ProjectService
-  constructor(projectService: ProjectService) {
-    this.projectService = projectService;
+  constructor(private projectService: ProjectService, private nzMessageService: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -35,8 +34,14 @@ export class ProjectManagementComponent implements OnInit {
 
   }
 
-  public addProject() {
-    alert('OK');
+
+  public deleteProject(name: string) {
+    console.log('name', name);
+    this.projectService.deleteProject(name);
+  }
+
+  confirm(): void {
+    this.nzMessageService.info('click confirm');
   }
 
 }

@@ -3,7 +3,7 @@
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="6">
         <nz-card style="margin-top: 16px;" [nzHoverable]="false">
-            <div nz-card-grid [ngStyle]="gridStyle" style="height: 145px; line-height: 100px;" (click)="addProject()"> 
+            <div nz-card-grid [ngStyle]="gridStyle" style="height: 145px; line-height: 100px;" [routerLink]="['/project-create']">
                 <i nz-icon nzType="plus" nzTheme="outline" style="font-size: 3em; color: gray;"></i>
             </div>
         </nz-card>
@@ -28,7 +28,8 @@
     <i nz-icon nzType="edit"></i>
 </ng-template>
 <ng-template #actionDelete>
-    <i nz-icon nzType="delete"></i>
+    <i nz-icon nzType="delete" nz-popconfirm nzPopconfirmTitle="Are you sure delete this project?" nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="deleteProject('Test77')" (nzOnCancel)="return;"></i>
 </ng-template>
 <ng-template #actionEllipsis>
     <i nz-icon nzType="ellipsis"></i>

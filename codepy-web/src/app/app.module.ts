@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -23,6 +23,13 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
 
 registerLocaleData(zh);
 
@@ -32,11 +39,13 @@ registerLocaleData(zh);
     HomeComponent,
     AboutComponent,
     ProjectManagementComponent,
-    ProjectEditorComponent
+    ProjectEditorComponent,
+    ProjectCreatorComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NzLayoutModule,
@@ -48,6 +57,12 @@ registerLocaleData(zh);
     NzSwitchModule,
     NzGridModule,
     NzIconModule,
+    NzFormModule,
+    NzPopconfirmModule,
+    NzInputModule,
+    NzButtonModule,
+    NzResultModule,
+    NzMessageModule,
     AppRoutingModule,
     HttpClientModule
   ],

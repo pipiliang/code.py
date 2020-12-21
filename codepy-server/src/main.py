@@ -5,7 +5,7 @@ import threading
 
 from flask_sockets import Sockets
 from gevent import monkey
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 from pyls_jsonrpc import streams
@@ -24,8 +24,8 @@ writer = None
 @app.after_request
 def cors(environ):
     environ.headers['Access-Control-Allow-Origin'] = '*'
-    environ.headers['Access-Control-Allow-Method'] = '*'
-    environ.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+    environ.headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
+    environ.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, X-Auth-Token'
     return environ
 
 
@@ -61,12 +61,22 @@ def hello():
     return 'Hello, This is code.py server!'
 
 
-@app.route('/projects/', methods=['GET', 'POST'])
-def handle_projects():
-    if request.method == 'GET':
-        return ProjectManager.get_projects()
-    if request.method == 'POST':
-        return ProjectManager.create_project(request)
+@app.route('/projects/', methods=['GET'])
+def get_all_projects():
+    return ProjectManager.get_projects()
+
+
+@app.route('/project/', methods=['POST'])
+def create_project():
+    return ProjectManager.create_project(request)
+
+
+@app.route('/project/<projectname>/', methods=['GET', 'DELETE', 'OPTIONS'])
+def handle_project(projectname):
+    if request.method == 'DELETE':
+        return ProjectManager.delete_project(projectname)
+    else:
+        return jsonify({"GET": "Nice Get Request"})
 
 
 if __name__ == "__main__":

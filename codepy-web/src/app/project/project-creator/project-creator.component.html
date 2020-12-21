@@ -1,0 +1,30 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" [hidden]="hideFrom">
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired nzFor="name">Name</nz-form-label>
+        <nz-form-control [nzSpan]="8" nzErrorTip="Please input your project name">
+            <input type="text" nz-input formControlName="name" placeholder="Please input your project name" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzFor="description" [nzRequired]="validateForm.get('required')?.value">Description
+        </nz-form-label>
+        <nz-form-control [nzSpan]="8" nzErrorTip="Please input your project description">
+            <textarea nz-input formControlName="description" placeholder="Please input your project description"
+                [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control [nzOffset]="4" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">OK</button>
+            <button nz-button class="button-margin" [routerLink]="['/project']">Cancel</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<nz-result [hidden]="result == 'No'" nzStatus="success" nzTitle="Successfully Create Project!"
+    nzSubTitle="Project Name: {{ validateForm.value.name }}">
+    <div nz-result-extra>
+        <button nz-button nzType="primary">Go Editor</button>
+        <button nz-button [routerLink]="['/project']">Go Project Management</button>
+    </div>
+</nz-result>
