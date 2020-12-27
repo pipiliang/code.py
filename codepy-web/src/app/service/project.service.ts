@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,24 @@ export class ProjectService {
     try {
       return await this.http.get(this.BASE_URL + '/projects/').toPromise();
     } catch (error) {
-
+      return [];
     }
 
   }
 
   async createProject(body: any): Promise<any> {
-    return await this.http.post(this.BASE_URL + '/project/', body).toPromise();
+    return this.http.post(this.BASE_URL + '/project/', body).toPromise();
   }
 
-  async deleteProject(name: string): Promise<any> {
-    return await this.http.delete(this.BASE_URL + '/project/{name}').toPromise();
+  deleteProject(name: string): Promise<any> {
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     "Content-Type": "application/json",
+    //     'Access-Control-Allow-Origin': '*',
+    //   })
+    // };
+    // console.log(this.BASE_URL + '/project/' + name)
+    return this.http.delete(this.BASE_URL + '/project/' + name).toPromise();
   }
 
 }

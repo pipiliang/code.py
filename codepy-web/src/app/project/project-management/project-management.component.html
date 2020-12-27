@@ -17,20 +17,21 @@
                 </nz-card-meta>
             </nz-skeleton>
         </nz-card>
+
+        <ng-template #avatarTemplate>
+            <nz-avatar nzSrc="../../../assets/images/python_black.jpg">
+            </nz-avatar>
+        </ng-template>
+        <ng-template #actionEdit>
+            <i nz-icon nzType="edit"></i>
+        </ng-template>
+        <ng-template #actionDelete>
+            <i nz-icon nzType="delete" nz-popconfirm nzPopconfirmTitle="Are you sure delete this project?" nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="deleteProject(project.name)" (nzOnCancel)="return;"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+            <i nz-icon nzType="ellipsis"></i>
+        </ng-template>
+
     </div>
 </div>
-
-<ng-template #avatarTemplate>
-    <nz-avatar nzSrc="../../../assets/images/python_black.jpg">
-    </nz-avatar>
-</ng-template>
-<ng-template #actionEdit>
-    <i nz-icon nzType="edit"></i>
-</ng-template>
-<ng-template #actionDelete>
-    <i nz-icon nzType="delete" nz-popconfirm nzPopconfirmTitle="Are you sure delete this project?" nzPopconfirmPlacement="bottom"
-        (nzOnConfirm)="deleteProject('Test77')" (nzOnCancel)="return;"></i>
-</ng-template>
-<ng-template #actionEllipsis>
-    <i nz-icon nzType="ellipsis"></i>
-</ng-template>

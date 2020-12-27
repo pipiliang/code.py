@@ -22,13 +22,7 @@ export class ProjectManagementComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(async () => {
       this.loading = true;
-      const projects = await this.projectService.getProjects();
-      projects.forEach(project => {
-        this.projects.push({
-          name: project.name,
-          description: project.description
-        });
-      });
+      this.projects = await this.projectService.getProjects();
       this.loading = false;
     }, 500)
 
@@ -36,8 +30,16 @@ export class ProjectManagementComponent implements OnInit {
 
 
   public deleteProject(name: string) {
-    console.log('name', name);
-    this.projectService.deleteProject(name);
+    this.projectService.deleteProject(name)
+      .then((res) => {
+        this.nzMessageService.info('Delete project ' + name + ' successfully!');
+        const index = this.projects.findIndex(p => p.name === name);
+        delete this.projects[index];
+      })
+      .catch(erro => {
+        console.log(erro);
+      })
+      .finally();
   }
 
   confirm(): void {
