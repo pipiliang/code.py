@@ -19,18 +19,11 @@ export class ProjectService {
   }
 
   async createProject(body: any): Promise<any> {
-    return this.http.post(this.BASE_URL + '/project/', body).toPromise();
+    return this.http.post(this.BASE_URL + '/projects/', body).toPromise();
   }
 
   deleteProject(name: string): Promise<any> {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     "Content-Type": "application/json",
-    //     'Access-Control-Allow-Origin': '*',
-    //   })
-    // };
-    // console.log(this.BASE_URL + '/project/' + name)
-    return this.http.delete(this.BASE_URL + '/project/' + name).toPromise();
+    return this.http.delete(this.BASE_URL + '/projects/' + name).toPromise();
   }
 
 }

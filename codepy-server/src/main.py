@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import time
 import subprocess
@@ -5,27 +7,27 @@ import threading
 
 from flask_sockets import Sockets
 from gevent import monkey
-from flask import Flask, request, jsonify
+from flask import Flask
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler
 from pyls_jsonrpc import streams
-from projectmanager import ProjectManager
+from views.projectview import ProjectAPI
+from views.defaultview import DefaultAPI
 
 monkey.patch_all()
 
 app = Flask(__name__)
+app.debug = True
 sockets = Sockets(app)
 now = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-
-
 writer = None
 
 
 @app.after_request
 def cors(environ):
     environ.headers['Access-Control-Allow-Origin'] = '*'
-    environ.headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
-    environ.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, X-Auth-Token'
+    environ.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    environ.headers['Access-Control-Allow-Headers'] = '*'
     return environ
 
 
@@ -56,28 +58,13 @@ def echo_socket(ws):
             print(now, "no receive")
 
 
-@app.route('/')
-def hello():
-    return 'Hello, This is code.py server!'
+# Add url rules
+app.add_url_rule('/', view_func=DefaultAPI.as_view('default_api'))
 
-
-@app.route('/projects/', methods=['GET'])
-def get_all_projects():
-    return ProjectManager.get_projects()
-
-
-@app.route('/project/', methods=['POST'])
-def create_project():
-    return ProjectManager.create_project(request)
-
-
-@app.route('/project/<projectname>/', methods=['GET', 'DELETE', 'OPTIONS'])
-def handle_project(projectname):
-    if request.method == 'DELETE':
-        return ProjectManager.delete_project(projectname)
-    else:
-        return jsonify({"GET": "Nice Get Request"})
-
+projects_view = ProjectAPI.as_view('projects_api')
+app.add_url_rule('/projects/', view_func=projects_view)
+app.add_url_rule('/projects/<projectname>',
+                 view_func=projects_view, methods=['DELETE'])
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(

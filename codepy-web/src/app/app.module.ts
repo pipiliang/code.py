@@ -29,7 +29,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
+import { MainComponent } from './main/main.component';
 
 registerLocaleData(zh);
 
@@ -40,7 +42,8 @@ registerLocaleData(zh);
     AboutComponent,
     ProjectManagementComponent,
     ProjectEditorComponent,
-    ProjectCreatorComponent
+    ProjectCreatorComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ registerLocaleData(zh);
     NzButtonModule,
     NzResultModule,
     NzMessageModule,
+    NzPageHeaderModule,
     AppRoutingModule,
     HttpClientModule
   ],

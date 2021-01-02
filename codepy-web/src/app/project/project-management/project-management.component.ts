@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProjectService } from './../../service/project.service'
 
@@ -9,14 +10,17 @@ import { ProjectService } from './../../service/project.service'
   styleUrls: ['./project-management.component.scss']
 })
 export class ProjectManagementComponent implements OnInit {
-  loading = false;
+  loading = true;
   projects = [];
   gridStyle = {
     width: '100%',
     textAlign: 'center'
   };
 
-  constructor(private projectService: ProjectService, private nzMessageService: NzMessageService) {
+  constructor(
+    private projectService: ProjectService,
+    private router: Router,
+    private nzMessageService: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -28,18 +32,20 @@ export class ProjectManagementComponent implements OnInit {
 
   }
 
+  public toEditor(name: string) {
+    this.router.navigate(['', { outlets: { editor: 'project-editor' } }]);
+  }
 
-  public deleteProject(name: string) {
-    this.projectService.deleteProject(name)
-      .then((res) => {
-        this.nzMessageService.info('Delete project ' + name + ' successfully!');
-        const index = this.projects.findIndex(p => p.name === name);
-        delete this.projects[index];
-      })
-      .catch(erro => {
-        console.log(erro);
-      })
-      .finally();
+  public async deleteProject(name: string) {
+    try {
+      await this.projectService.deleteProject(name);
+      this.nzMessageService.success('Delete project ' + name + ' successfully!');
+      const index = this.projects.findIndex(p => p.name === name);
+      delete this.projects[index];
+      this.projects.splice(index, 1);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   confirm(): void {

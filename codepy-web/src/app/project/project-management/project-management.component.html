@@ -1,5 +1,3 @@
-<!-- <nz-switch [(ngModel)]="loading"></nz-switch> -->
-
 <div nz-row [nzGutter]="8">
     <div nz-col [nzSpan]="6">
         <nz-card style="margin-top: 16px;" [nzHoverable]="false">
@@ -23,7 +21,7 @@
             </nz-avatar>
         </ng-template>
         <ng-template #actionEdit>
-            <i nz-icon nzType="edit"></i>
+            <a nz-icon nzType="edit" [routerLink]="['/editor']"></a>
         </ng-template>
         <ng-template #actionDelete>
             <i nz-icon nzType="delete" nz-popconfirm nzPopconfirmTitle="Are you sure delete this project?" nzPopconfirmPlacement="bottom"
