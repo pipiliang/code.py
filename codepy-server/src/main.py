@@ -68,6 +68,6 @@ app.add_url_rule('/projects/<projectname>',
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(
-        ('192.168.1.106', 4201), app, handler_class=WebSocketHandler)
+        ('0.0.0.0', 4201), app, handler_class=WebSocketHandler)
     print('code.py server start ...')
     server.serve_forever()

@@ -1,0 +1,27 @@
+// :host {
+//     text-align: center;
+//   }
+
+  nz-header {
+    border-bottom: solid 1px #303030;
+  }
+
+  nz-footer {
+    border-top: solid 1px #303030;
+  }
+
+  nz-sider {
+    border-right: solid 1px #303030;
+  }
+
+  nz-content {
+  
+  }
+
+  nz-layout {
+    height: 100%;
+  }
+
+  nz-layout:last-child {
+    margin: 0;
+  }

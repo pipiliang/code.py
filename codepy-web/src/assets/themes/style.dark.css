@@ -25225,8 +25225,6 @@ nz-space-item {
   display: block;
 }
 
-.inner-content {
+.custom-base-background {
   background: #1f1f1f;
-  padding: 15px 24px 24px 24px;
-  min-height: 280px;
 }

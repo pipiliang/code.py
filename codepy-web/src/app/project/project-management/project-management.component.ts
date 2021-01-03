@@ -19,7 +19,6 @@ export class ProjectManagementComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private router: Router,
     private nzMessageService: NzMessageService) {
   }
 
@@ -30,10 +29,6 @@ export class ProjectManagementComponent implements OnInit {
       this.loading = false;
     }, 500)
 
-  }
-
-  public toEditor(name: string) {
-    this.router.navigate(['', { outlets: { editor: 'project-editor' } }]);
   }
 
   public async deleteProject(name: string) {

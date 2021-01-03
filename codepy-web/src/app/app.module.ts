@@ -17,7 +17,6 @@ import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { ProjectManagementComponent } from './project/project-management/project-management.component';
-import { ProjectEditorComponent } from './project/project-editor/project-editor.component';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -32,6 +31,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
 import { MainComponent } from './main/main.component';
+import { WorkbenchComponent } from './workbench/workbench.component';
 
 registerLocaleData(zh);
 
@@ -41,9 +41,9 @@ registerLocaleData(zh);
     HomeComponent,
     AboutComponent,
     ProjectManagementComponent,
-    ProjectEditorComponent,
     ProjectCreatorComponent,
-    MainComponent
+    MainComponent,
+    WorkbenchComponent
   ],
   imports: [
     BrowserModule,

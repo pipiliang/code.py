@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProjectService {
-  private readonly BASE_URL = 'http://192.168.1.106:4201';
+  private readonly BASE_URL = 'http://127.0.0.1:4201';
 
   constructor(private http: HttpClient) { }
 
