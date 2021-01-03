@@ -1,5 +1,8 @@
 <nz-layout>
     <nz-header>
+      <div style="float: right;">
+        <nz-switch [ngModel]="false" nzCheckedChildren="Light" nzUnCheckedChildren="Dark" (ngModelChange)="changeDrakTheme($event)"></nz-switch>
+      </div>
       <div class="logo"></div>
       <ul nz-menu nzTheme="dark" nzMode="horizontal">
         <li nz-menu-item nzIcon="home">

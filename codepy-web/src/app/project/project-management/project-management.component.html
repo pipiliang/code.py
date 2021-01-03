@@ -11,14 +11,14 @@
             [nzActions]="[actionEdit, actionDelete, actionEllipsis]">
             <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="{ size: 'large' }">
                 <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="project.name"
-                    [nzDescription]="project.description">
+                    [nzDescription]="project.description ? project.description : '--'">
                 </nz-card-meta>
             </nz-skeleton>
         </nz-card>
 
         <ng-template #avatarTemplate>
-            <nz-avatar nzSrc="../../../assets/images/python_black.jpg">
-            </nz-avatar>
+            <!-- nzSrc="../../../assets/images/python_black.jpg" -->
+            <nz-avatar nzIcon="codepen" [nzShape]="'square'" nzSize="large"></nz-avatar>
         </ng-template>
         <ng-template #actionEdit>
             <a nz-icon nzType="edit" [routerLink]="['/editor']"></a>
