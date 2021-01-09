@@ -30,11 +30,15 @@
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "output": "/assets/"
+              },
+              {
+                "glob": "ng-zorro-antd.dark.min.css",
+                "input": "./node_modules/ng-zorro-antd/",
+                "output": "/assets/themes/"
               }
             ],
             "styles": [
               "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.dark.css",
               "src/styles.scss"
             ],
             "scripts": []

@@ -14,18 +14,32 @@ export class MainComponent implements OnInit {
 
   changeDrakTheme(isDark: boolean) {
     if (isDark) {
+      this.appendThemeElement(
+        { id: 'dark-theme', href: 'assets/themes/ng-zorro-antd.dark.min.css' },
+        { id: 'my-dark-theme', href: 'assets/themes/style.dark.css' });
+    } else {
+      this.removeThemeElement('dark-theme', 'my-dark-theme');
+    }
+  }
+
+  private appendThemeElement(...themes: { id: string, href: string }[]) {
+    themes.forEach(theme => {
       const style = document.createElement('link');
       style.type = 'text/css';
       style.rel = 'stylesheet';
-      style.id = 'dark-theme';
-      style.href = 'assets/themes/style.dark.css';
+      style.id = theme.id;
+      style.href = theme.href;
       document.body.appendChild(style);
-    } else {
-      const dom = document.getElementById('dark-theme');
+    });
+  }
+
+  private removeThemeElement(...ids: string[]) {
+    ids.forEach(id => {
+      const dom = document.getElementById(id);
       if (dom) {
         dom.remove();
       }
-    }
+    });
   }
 
 }
