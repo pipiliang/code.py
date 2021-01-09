@@ -1,20 +1,52 @@
 <nz-layout class="custom-base-background">
-    <!-- <nz-header class="custom-base-background">
-        <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" nzTitle="Title" nzSubtitle="This is a subtitle" style="height: 60px;">
-            <nz-avatar nz-page-header-avatar nzSrc="https://avatars0.githubusercontent.com/u/22736418?s=88&v=4">
-            </nz-avatar>
-        </nz-page-header>
-    </nz-header> -->
-    <div style="height: 65px; border-bottom: solid 1px #303030;" class="custom-base-background">
-        <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" nzTitle="Title" nzSubtitle="This is a subtitle" style="height: 60px;">
-            <nz-avatar nz-page-header-avatar nzIcon="codepen" [nzShape]="'square'">
-            </nz-avatar>
-        </nz-page-header>
-    </div>
-    <nz-layout class="custom-base-background">
-        <nz-sider class="custom-base-background" [nzWidth]="400">Sider</nz-sider>
-        <nz-content>Content</nz-content>
-    </nz-layout>
-    <!-- <nz-footer>Footer</nz-footer> -->
-    <div style="height: 30px; border-top: solid 1px #303030;" class="custom-base-background"></div>
+  <!-- 标题栏 / 菜单栏 -->
+  <div style="height: 65px; border-bottom: solid 1px #303030;" class="custom-base-background">
+    <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" nzTitle="Title"
+      nzSubtitle="This is a subtitle" style="height: 60px;">
+      <nz-avatar nz-page-header-avatar nzIcon="codepen" [nzShape]="'square'">
+      </nz-avatar>
+    </nz-page-header>
+  </div>
+  <!-- 编辑部分 -->
+  <nz-layout class="custom-base-background">
+    <!-- 资源管理器 -->
+    <nz-sider class="custom-base-background" [nzWidth]="siderWidth" nz-resizable [nzMinWidth]="53" [nzMaxWidth]="600"
+      (nzResize)="onSideResize($event)">
+      <!-- resize -->
+      <nz-resize-handle nzDirection="right">
+        <div class="sider-resize-line"></div>
+      </nz-resize-handle>
+      <!-- 侧边栏中的分类区域 -->
+      <nz-tabset [nzTabPosition]="'left'" style="height: 100%;">
+        <nz-tab [nzTitle]="fileTabTemplate">
+          <ng-template #fileTabTemplate>
+            <i nz-icon [nzType]="'file'" style="width:0; font-size:1.5em; margin-left:-8px; padding-top: 5px;"></i>
+          </ng-template>
+        </nz-tab>
+        <nz-tab [nzTitle]="searchTabTemplate">
+          <ng-template #searchTabTemplate>
+            <i nz-icon [nzType]="'search'" style="width:0; font-size:1.7em; margin-left:-8px;"></i>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+    </nz-sider>
+
+    <nz-content>
+      <!-- 输入区域：编辑器 -->
+      <div nz-resizable class="resizable-box" [style.height.px]="contentHeight" [nzMaxHeight]="500" [nzMinHeight]="100" style="border-bottom: solid 1px #303030;"
+        (nzResize)="onContentResize($event)">
+        <nz-resize-handle nzDirection="bottom">
+          <div class="content-resize-line"></div>
+        </nz-resize-handle>
+        Content 1
+      </div>
+      <!-- 输出区域：控制台 -->
+      <div style="min-height: 50px;">
+        Content 2
+      </div>
+    </nz-content>
+  </nz-layout>
+
+  <!-- 状态栏 -->
+  <div style="height: 30px; border-top: solid 1px #303030;" class="custom-base-background"></div>
 </nz-layout>

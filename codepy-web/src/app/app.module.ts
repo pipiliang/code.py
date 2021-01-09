@@ -29,6 +29,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
 import { MainComponent } from './main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
@@ -67,6 +69,8 @@ registerLocaleData(zh);
     NzResultModule,
     NzMessageModule,
     NzPageHeaderModule,
+    NzTabsModule,
+    NzResizableModule,
     AppRoutingModule,
     HttpClientModule
   ],
