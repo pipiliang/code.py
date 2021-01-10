@@ -64,7 +64,7 @@ app.add_url_rule('/', view_func=DefaultAPI.as_view('default_api'))
 projects_view = ProjectAPI.as_view('projects_api')
 app.add_url_rule('/projects/', view_func=projects_view)
 app.add_url_rule('/projects/<projectname>',
-                 view_func=projects_view, methods=['DELETE'])
+                 view_func=projects_view, methods=['GET', 'DELETE'])
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(

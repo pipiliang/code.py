@@ -15,20 +15,21 @@ class ProjectService():
         projects = []
         for f in os.listdir(base_dir):
             # 读取 ./.codepy/project.json
-            # project_json_path = os.path.join(
-            #     base_dir, f, '.codepy/project.json')
-            # if os.path.exists(project_json_path):
-            #     with open(project_json_path, 'r', encoding='utf8') as fp:
-            #         json_data = json.load(fp)
-            #         projects.append(json_data)
-            # else:
-            #     projects.append({
-            #         'name': f,
-            #         'description': '--'
-            #     })
             project_json = ProjectService._read_project_json(f)
             projects.append(project_json)
         return json.dumps(projects)
+
+    @staticmethod
+    def get_project_by_name(project_name):
+        # 工程基本信息
+        project = ProjectService._read_project_json(project_name)
+        file_tree_json = FileWorker().get_tree_json(
+            os.path.join(base_dir, project_name))
+        project_file_tree = {
+            'project': project,
+            'files': file_tree_json
+        }
+        return json.dumps(project_file_tree)
 
     @staticmethod
     def create_project(request):
@@ -45,9 +46,6 @@ class ProjectService():
         else:
             os.makedirs(os.path.join(full_path, '.codepy'))
             # 写入信息到 ./.codepy/project.json
-            # project_json_path = os.path.join(full_path, '.codepy/project.json')
-            # with open(project_json_path, "w") as fp:
-            #     fp.write(json.dumps(project, indent=4))
             ProjectService._write_project_json(name, project)
             return json.dumps(project)
 
@@ -77,7 +75,29 @@ class ProjectService():
 
     @staticmethod
     def _write_project_json(project_dir, project_json):
-        # 写入信息到 ./.codepy/project.json
         path = os.path.join(base_dir, project_dir, '.codepy/project.json')
         with open(path, "w") as fp:
             fp.write(json.dumps(project_json, indent=4))
+
+
+class FileWorker():
+
+    def get_tree_json(self, path):
+        data = self._path_to_json(path)
+        if data['children']:
+            return data['children']
+        else:
+            return []
+
+    def _path_to_json(self, path):
+        name = os.path.basename(path)
+        json_data = {'title': name, 'key': name}
+        if os.path.isdir(path):
+            json_data['isLeaf'] = False
+            files = os.listdir(path)
+            files.sort()
+            json_data['children'] = [self._path_to_json(
+                os.path.join(path, x)) for x in files]
+        else:
+            json_data['isLeaf'] = True
+        return json_data

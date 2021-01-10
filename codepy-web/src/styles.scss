@@ -3,12 +3,13 @@
 @import "~ng-zorro-antd/resizable/style/index.css";
 
 .inner-content {
-    padding: 15px 24px 24px 24px;
-    min-height: 280px;
-  }
+  padding: 15px 24px 24px 24px;
+  min-height: 280px;
+}
 
 // theme-color
+$bgcolor: #fff;
 
 .custom-base-background {
-  background: #fff;
+  background: $bgcolor;
 }

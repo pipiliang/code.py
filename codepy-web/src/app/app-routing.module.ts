@@ -17,7 +17,7 @@ const routes: Routes = [
       { path: 'project-create', component: ProjectCreatorComponent },
     ]
   },
-  { path: 'workbench', component: WorkbenchComponent }
+  { path: 'workbench/:projectName', component: WorkbenchComponent }
 ];
 
 @NgModule({

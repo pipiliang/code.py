@@ -15,14 +15,22 @@ export class ProjectService {
     } catch (error) {
       return [];
     }
-
   }
+
+  async getProjectByName(name: string): Promise<any> {
+    try {
+      return await this.http.get(this.BASE_URL + '/projects/' + name).toPromise();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   async createProject(body: any): Promise<any> {
     return this.http.post(this.BASE_URL + '/projects/', body).toPromise();
   }
 
-  deleteProject(name: string): Promise<any> {
+  async deleteProject(name: string): Promise<any> {
     return this.http.delete(this.BASE_URL + '/projects/' + name).toPromise();
   }
 

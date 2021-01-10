@@ -1,8 +1,8 @@
 <nz-layout class="custom-base-background">
   <!-- 标题栏 / 菜单栏 -->
   <div style="height: 65px; border-bottom: solid 1px #303030;" class="custom-base-background">
-    <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" nzTitle="Title"
-      nzSubtitle="This is a subtitle" style="height: 60px;">
+    <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" [nzTitle]="projectName"
+      [nzSubtitle]="projectDescription" style="height: 60px;">
       <nz-avatar nz-page-header-avatar nzIcon="codepen" [nzShape]="'square'">
       </nz-avatar>
     </nz-page-header>
@@ -22,6 +22,8 @@
           <ng-template #fileTabTemplate>
             <i nz-icon [nzType]="'file'" style="width:0; font-size:1.5em; margin-left:-8px; padding-top: 5px;"></i>
           </ng-template>
+          <!-- 资源管理器 -->
+          <app-file-tree [nodes]="nodes"></app-file-tree>
         </nz-tab>
         <nz-tab [nzTitle]="searchTabTemplate">
           <ng-template #searchTabTemplate>
