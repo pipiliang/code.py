@@ -37,6 +37,7 @@ import { ProjectCreatorComponent } from './project/project-creator/project-creat
 import { MainComponent } from './main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
 import { FileTreeComponent } from './workbench/file-tree/file-tree.component';
+import { FileEditorComponent } from './workbench/file-editor/file-editor.component';
 
 registerLocaleData(zh);
 
@@ -49,7 +50,8 @@ registerLocaleData(zh);
     ProjectCreatorComponent,
     MainComponent,
     WorkbenchComponent,
-    FileTreeComponent
+    FileTreeComponent,
+    FileEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,28 +1,21 @@
 <nz-layout>
-    <nz-header>
-      <div style="float: right;">
+    <div header>
+      <div toolbar>
         <nz-switch [ngModel]="false" nzCheckedChildren="Light" nzUnCheckedChildren="Dark" (ngModelChange)="changeDrakTheme($event)"></nz-switch>
       </div>
       <div class="logo"></div>
-      <ul nz-menu nzTheme="dark" nzMode="horizontal">
-        <li nz-menu-item nzIcon="home">
-          <a routerLink="/home">Home</a>
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item nzSelected>
+          <a routerLink="/home"><i nz-icon nzType="home"></i>Home</a>
         </li>
-        <li nz-submenu nzTitle="Project" nzIcon="setting">
-          <ul>
-            <li nz-menu-item>
-              <a [routerLink]="['/project']">Python Project</a>
-            </li>
-            <li nz-menu-item>
-              <a>Others</a>
-            </li>
-          </ul>
+        <li nz-menu-item>
+          <a [routerLink]="['/project']"><i nz-icon nzType="project"></i>Projects</a>
         </li>
         <li nz-menu-item>
           <a href="https://github.com/pipiliang/code.py" target="_blank" rel="noopener noreferrer">About</a>
         </li>
       </ul>
-    </nz-header>
+    </div>
     <nz-content>
       <nz-breadcrumb>
         <nz-breadcrumb-item>Home</nz-breadcrumb-item>
