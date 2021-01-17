@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 @import "~ng-zorro-antd/resizable/style/index.css";
+@import "~ng-zorro-antd/code-editor/style/index.css";
+
+:root {
+  --border-color: #f0f0f0;
+}
 
 .inner-content {
   padding: 15px 24px 24px 24px;

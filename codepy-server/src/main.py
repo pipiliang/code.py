@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import json
-import time
 import subprocess
 import threading
+import time
 
-from flask_sockets import Sockets
-from gevent import monkey
 from flask import Flask
-from gevent import pywsgi
+from flask_sockets import Sockets
+from gevent import monkey, pywsgi
 from geventwebsocket.handler import WebSocketHandler
 from pyls_jsonrpc import streams
-from views.projectview import ProjectAPI
+
 from views.defaultview import DefaultAPI
+from views.projectview import ProjectAPI, FileAPI
 
 monkey.patch_all()
 
@@ -65,6 +65,10 @@ projects_view = ProjectAPI.as_view('projects_api')
 app.add_url_rule('/projects/', view_func=projects_view)
 app.add_url_rule('/projects/<projectname>',
                  view_func=projects_view, methods=['GET', 'DELETE'])
+
+files_view = FileAPI.as_view('file_api')
+app.add_url_rule('/files', view_func=files_view)
+
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(

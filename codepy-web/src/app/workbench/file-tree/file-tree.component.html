@@ -1,11 +1,13 @@
-<nz-tree nzBlockNode [nzData]="nodes" (nzClick)="activeNode($event)"
+<nz-tree nzBlockNode [nzData]="files" (nzClick)="activeNode($event)"
     [nzBlockNode]="true" [nzTreeTemplate]="nzTreeTemplate"></nz-tree>
 <ng-template #nzTreeTemplate let-node let-origin="origin">
     <span class="custom-node">
+        <!-- 目录 -->
         <span *ngIf="!node.isLeaf" (contextmenu)="contextMenu($event, menu)">
-            <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" (click)="openFolder(node)"></i>
+            <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" style="color:#1890ff;" (click)="openFolder(node)"></i>
             <span class="folder-name">{{ node.title }}</span>
         </span>
+        <!-- 文件 -->
         <span *ngIf="node.isLeaf" (contextmenu)="contextMenu($event, menu)">
             <i nz-icon nzType="file"></i>
             <span class="file-name">{{ node.title }}</span>

@@ -35,6 +35,11 @@
                 "glob": "ng-zorro-antd.dark.min.css",
                 "input": "./node_modules/ng-zorro-antd/",
                 "output": "/assets/themes/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/monaco-editor/min/vs",
+                "output": "/assets/vs/"
               }
             ],
             "styles": [

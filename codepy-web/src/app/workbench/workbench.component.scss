@@ -2,21 +2,23 @@
 //     text-align: center;
 //   }
 
-nz-header {
-  border-bottom: solid 1px #303030;
+.border-bottom,
+.header {
+  border-bottom: solid 1px var(--border-color);
 }
 
-nz-footer {
-  border-top: solid 1px #303030;
+.header {
+  height: 65px;
+}
+
+.footer {
+  border-top: solid 1px var(--border-color);
+  height: 30px;
 }
 
 nz-sider {
-  border-right: solid 1px #303030;
+  border-right: solid 1px var(--border-color);
 }
-
-// nz-content {
-
-// }
 
 nz-layout {
   height: 100%;

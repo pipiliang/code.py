@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileHandleEvent, FileHandleType } from '../file-tree/filehandler';
 
 @Component({
   selector: 'app-file-editor',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class FileEditorComponent implements OnInit {
 
   index = 0;
-  tabs = ['Tab 1', 'Tab 2'];
+  tabs = [];
 
   constructor() { }
 
@@ -21,7 +22,21 @@ export class FileEditorComponent implements OnInit {
 
   newTab(): void {
     this.tabs.push('New Tab');
-    this.index = this.tabs.length - 1;
+  }
+
+  handleTab(event: FileHandleEvent): void {
+    if (event.type === FileHandleType.Open) {
+      const some = this.tabs.some(tab => tab.fileName === event.fileName);
+      if (some) {
+
+      } else {
+        this.tabs.push({
+          name: event.fileName,
+          content : event.content
+        });
+        this.index = this.tabs.length - 1;
+      }
+    }
   }
 
 }

@@ -2,9 +2,10 @@
 
 from flask import request, Response
 from flask.views import MethodView
-from services.projectservice import ProjectService
+from services.projectservice import ProjectService, FileService
 
 
+# todo 参数校验未处理
 class ProjectAPI(MethodView):
 
     def get(self, projectname=None):
@@ -14,7 +15,10 @@ class ProjectAPI(MethodView):
             return ProjectService.get_project_by_name(projectname)
 
     def post(self):
-        return ProjectService.create_project(request)
+        # 检测是否有数据
+        if not request.data:
+            return ('fail')
+        return ProjectService.create_project(request.data)
 
     def delete(self, projectname):
         return ProjectService.delete_project(projectname)
@@ -26,3 +30,11 @@ class ProjectAPI(MethodView):
             'Access-Control-Allow-Methods': 'DELETE, OPTIONS'
         }
         return Response('Options OK', 202, headers)
+
+
+class FileAPI(MethodView):
+
+    def post(self):
+        if not request.data:
+            return ('fail')
+        return FileService.get_file(request.data)

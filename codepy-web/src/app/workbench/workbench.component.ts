@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { ProjectService } from '../service/project.service';
+import { FileEditorComponent } from './file-editor/file-editor.component';
+import { FileHandleEvent } from './file-tree/filehandler';
 
 @Component({
   selector: 'app-workbench',
@@ -11,8 +13,9 @@ import { ProjectService } from '../service/project.service';
 export class WorkbenchComponent implements OnInit {
   projectName = '';
   projectDescription = '';
-  nodes =  [];
-  
+  files = [];
+  @ViewChild(FileEditorComponent) fileEditor: FileEditorComponent;
+
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
@@ -24,7 +27,7 @@ export class WorkbenchComponent implements OnInit {
     setTimeout(async () => {
       const p = await this.projectService.getProjectByName(this.projectName);
       this.projectDescription = p.project.description;
-      this.nodes = p.files;
+      this.files = p.files;
     }, 500)
   }
 
@@ -50,4 +53,7 @@ export class WorkbenchComponent implements OnInit {
     });
   }
 
+  fileHandle(event: FileHandleEvent) {
+    this.fileEditor.handleTab(event);
+  }
 }

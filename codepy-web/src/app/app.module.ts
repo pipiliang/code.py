@@ -33,6 +33,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
 import { MainComponent } from './main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
@@ -79,6 +80,7 @@ registerLocaleData(zh);
     NzResizableModule,
     NzTreeModule,
     NzDropDownModule,
+    NzCodeEditorModule,
     AppRoutingModule,
     HttpClientModule
   ],

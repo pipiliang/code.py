@@ -1,6 +1,6 @@
 <nz-layout class="custom-base-background">
   <!-- 标题栏 / 菜单栏 -->
-  <div style="height: 65px; border-bottom: solid 1px #303030;" class="custom-base-background">
+  <div class="custom-base-background header">
     <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" [nzTitle]="projectName"
       [nzSubtitle]="projectDescription" style="height: 60px;">
       <nz-avatar nz-page-header-avatar nzIcon="codepen" [nzShape]="'square'">
@@ -23,7 +23,7 @@
             <i nz-icon [nzType]="'file'" style="width:0; font-size:1.5em; margin-left:-8px; padding-top: 5px;"></i>
           </ng-template>
           <!-- 资源管理器 -->
-          <app-file-tree [nodes]="nodes"></app-file-tree>
+          <app-file-tree [files]="files" [projectName]="projectName" (fileHandleEvent)="fileHandle($event)"></app-file-tree>
         </nz-tab>
         <nz-tab [nzTitle]="searchTabTemplate">
           <ng-template #searchTabTemplate>
@@ -35,22 +35,22 @@
 
     <nz-content>
       <!-- 输入区域：编辑器 -->
-      <div nz-resizable class="resizable-box" [style.height.px]="contentHeight" [nzMaxHeight]="500" [nzMinHeight]="100" style="border-bottom: solid 1px #303030;"
+      <div nz-resizable class="resizable-box border-bottom" [style.height.px]="contentHeight" [nzMaxHeight]="500" [nzMinHeight]="100" 
         (nzResize)="onContentResize($event)">
         <nz-resize-handle nzDirection="bottom">
           <div class="content-resize-line"></div>
         </nz-resize-handle>
 
-        <app-file-editor></app-file-editor>
+        <app-file-editor #fileEditor></app-file-editor>
         
       </div>
       <!-- 输出区域：控制台 -->
-      <div style="min-height: 50px;">
+      <div style="min-height: 50px;" class="nz-footer">
         Content 2
       </div>
     </nz-content>
   </nz-layout>
 
   <!-- 状态栏 -->
-  <div style="height: 30px; border-top: solid 1px #303030;" class="custom-base-background"></div>
+  <div class="custom-base-background footer"></div>
 </nz-layout>
