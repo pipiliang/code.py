@@ -53,6 +53,10 @@ export class WorkbenchComponent implements OnInit {
     });
   }
 
+  /**
+   * 资源管理(tree)的回调事件
+   * @param event 
+   */
   fileHandle(event: FileHandleEvent) {
     this.fileEditor.handleTab(event);
   }

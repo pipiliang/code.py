@@ -1,5 +1,6 @@
 <nz-tabset [(nzSelectedIndex)]="index" nzType="editable-card" (nzClose)="closeTab($event)" [nzHideAdd]="true">
-    <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i >= 0" [nzTitle]="tab.name">
-        <nz-code-editor class="editor" [ngModel]="tab.content" [nzEditorOption]="{ language: 'typescript' }"></nz-code-editor>
+    <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i >= 0" [nzTitle]="tab.name" (nzSelect)="selectTab(tab)">
+        <nz-code-editor class="editor" [ngModel]="tab.content" [nzEditorOption]="{ language: 'python' }" (nzEditorInitialized)="onEditorInit($event)">
+        </nz-code-editor>
     </nz-tab>
 </nz-tabset>

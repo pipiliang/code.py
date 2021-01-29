@@ -15,6 +15,11 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+        <nz-form-control [nzSpan]="8" [nzOffset]="8">
+            <label nz-checkbox [(ngModel)]="checked" formControlName="readme">readme.md</label>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
         <nz-form-control [nzOffset]="8" [nzSpan]="12">
             <button nz-button nzType="primary" [disabled]="!validateForm.valid">OK</button>
             <button nz-button class="button-margin" [routerLink]="['/project']">Cancel</button>

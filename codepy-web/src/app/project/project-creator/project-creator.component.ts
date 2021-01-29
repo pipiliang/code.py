@@ -11,13 +11,15 @@ export class ProjectCreatorComponent implements OnInit {
   validateForm!: FormGroup;
   hideFrom = false;
   result = "No";
+  checked = true;
 
   constructor(private fb: FormBuilder, private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
-      description: [null]
+      description: [null],
+      readme: [true]
     });
   }
 

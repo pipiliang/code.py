@@ -1,6 +1,8 @@
 # Code.py
 A python web editor base on Monaco-Editor.
 
+![](./screenshot/screen.gif)
+
 ## 后端
 
 后端使用 python3.6 开发，使用 `flask` 作为微服务框架。
