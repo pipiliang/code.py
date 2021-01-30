@@ -21,7 +21,7 @@
     "@angular/router": "~10.0.0",
     "@codingame/monaco-jsonrpc": "^0.3.0",
     "monaco-editor": "^0.22.0",
-    "monaco-editor-core": "^0.22.0",
+    "monaco-editor-core": "^0.19.0",
     "monaco-languageclient": "^0.13.0",
     "ng-zorro-antd": "^10.2.0",
     "reconnecting-websocket": "^4.4.0",

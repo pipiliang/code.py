@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FileHandleEvent, FileHandleType } from '../file-tree/filehandler';
-// import { LSPConnection } from '../../langserver/lspconnection';
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api"
-
+import { URLs } from '../../common/const';
+// import * as monaco from "monaco-editor/esm/vs/editor/editor.api"
+import { editor } from 'monaco-editor';
 import { listen } from 'vscode-ws-jsonrpc';
-
-// import { listen } from '@codingame/monaco-jsonrpc';
 import { MessageConnection } from 'vscode-jsonrpc';
 import {
   MonacoLanguageClient,
@@ -17,9 +15,6 @@ import {
 
 const ReconnectingWebSocket = require('reconnecting-websocket');
 
-import { editor } from 'monaco-editor';
-// declare const monaco: any;
-
 @Component({
   selector: 'app-file-editor',
   templateUrl: './file-editor.component.html',
@@ -29,13 +24,11 @@ export class FileEditorComponent implements OnInit {
 
   index = 0;
   tabs = [];
-  // lspConnection: LSPConnection;
-  editor;
+  editor: editor.ICodeEditor | editor.IEditor;
 
   constructor() { }
 
   ngOnInit(): void {
-    // this.lspConnection = new LSPConnection();
   }
 
   closeTab({ index }: { index: number }): void {
@@ -44,11 +37,8 @@ export class FileEditorComponent implements OnInit {
 
   onEditorInit(e: editor.ICodeEditor | editor.IEditor): void {
     this.editor = e;
-    // const content = this.tabs[this.index].content;
-    // this.editor.setModel(monaco.editor.createModel(content, 'python', monaco.Uri.parse("inmemory://model.py")));
-    MonacoServices.install(this.editor);
-    const url = this.createUrl();
-    const webSocket = this.createWebSocket(url);
+    MonacoServices.install(<any>this.editor);
+    const webSocket = this.createWebSocket(URLs.PYTHON_WS);
     listen({
       webSocket,
       onConnection: (connection: MessageConnection) => {
@@ -59,23 +49,19 @@ export class FileEditorComponent implements OnInit {
     });
   }
 
-  public createUrl(): string {
-      return 'ws://localhost:4201/python';
-  }
-
   public createLanguageClient(connection: MessageConnection): MonacoLanguageClient {
     return new MonacoLanguageClient({
       name: `pythong Client`,
       clientOptions: {
-      
+
         documentSelector: ['python'],
-       
+
         errorHandler: {
           error: () => ErrorAction.Continue,
           closed: () => CloseAction.DoNotRestart
         }
       },
-     
+
       connectionProvider: {
         get: (errorHandler, closeHandler) => {
           return Promise.resolve(createConnection(<any>connection, errorHandler, closeHandler));
@@ -93,70 +79,36 @@ export class FileEditorComponent implements OnInit {
       maxRetries: Infinity,
       debug: false
     };
-    return new ReconnectingWebSocket.default(socketUrl, [], socketOptions);    
+    return new ReconnectingWebSocket.default(socketUrl, [], socketOptions);
   }
 
+  /**
+   * 响应 FileTree 上的操作，后续优化为 Event 方式。
+   * @param event 
+   */
   handleTab(event: FileHandleEvent): void {
     if (event.type === FileHandleType.Open) {
-      const some = this.tabs.some(tab => tab.fileName === event.fileName);
-      if (some) {
-
-      } else {
-        this.tabs.push({
-          name: event.fileName,
-          content: event.content
-        });
-        this.index = this.tabs.length - 1;
-
-
-        // const editor = monaco.editor.create(document.getElementById(event.fileName), {
-        //   model: monaco.editor.createModel(
-        //     event.content,
-        //     "python",
-        //     monaco.Uri.parse("inmemory://model.py")
-        //   ),
-        //   glyphMargin: true,
-        //   lightbulb: {
-        //     enabled: true
-        //   }
-        // })
-
-        // const editor = this.lspConnection.createEditor(document.getElementById("container")! , event.content);
-        // this.lspConnection.connect(editor);
+      // if open
+      const index = this.tabs.findIndex(tab => tab.path === event.filePath);
+      if (index > -1) {
+        this.index = index;
+        return;
       }
+      this.tabs.push({
+        name: event.fileName,
+        path: event.filePath,
+        content: event.content
+      });
+      this.index = this.tabs.length - 1;
     }
   }
 
+  /**
+   * select tab view
+   * @param tab 
+   */
   selectTab(tab) {
     console.log("====");
-    // setTimeout(() => {
-    //   console.log(document.getElementById(tab.name));
-    //   this.initEditor(tab);
-    // }, 1);
-  }
-
-  private initEditor(tab) {
-    const uri = monaco.Uri.parse("inmemory://model.py");
-    let model = monaco.editor.getModel(uri);
-    if (!model) {
-      model = monaco.editor.createModel(
-        '',
-        "python",
-        monaco.Uri.parse("inmemory://model.py")
-      );
-    }
-    const editor = monaco.editor.create(document.getElementById(tab.name), {
-      model: model,
-      glyphMargin: true,
-      lightbulb: {
-        enabled: true
-      }
-    });
-
-    editor.setValue(tab.content);
-
-    // const editor = this.lspConnection.createEditor(document.getElementById("container")!, tab.content);
-    // this.lspConnection.connect(editor);
   }
 
 }

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { URLs } from '../common/const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-  private readonly BASE_URL = 'http://127.0.0.1:4201';
 
   constructor(private http: HttpClient) { }
 
   async getProjects(): Promise<any> {
     try {
-      return await this.http.get(this.BASE_URL + '/projects/').toPromise();
+      return await this.http.get(URLs.BASE_URL + '/projects/').toPromise();
     } catch (error) {
       return [];
     }
@@ -19,7 +19,7 @@ export class ProjectService {
 
   async getProjectByName(name: string): Promise<any> {
     try {
-      return await this.http.get(this.BASE_URL + '/projects/' + name).toPromise();
+      return await this.http.get(URLs.BASE_URL + '/projects/' + name).toPromise();
     } catch (error) {
       console.error(error);
     }
@@ -27,11 +27,11 @@ export class ProjectService {
 
 
   async createProject(body: any): Promise<any> {
-    return this.http.post(this.BASE_URL + '/projects/', body).toPromise();
+    return this.http.post(URLs.BASE_URL + '/projects/', body).toPromise();
   }
 
   async deleteProject(name: string): Promise<any> {
-    return this.http.delete(this.BASE_URL + '/projects/' + name).toPromise();
+    return this.http.delete(URLs.BASE_URL + '/projects/' + name).toPromise();
   }
 
 }

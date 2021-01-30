@@ -13,7 +13,6 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { ProjectManagementComponent } from './project/project-management/project-management.component';
@@ -23,6 +22,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -47,7 +47,6 @@ registerLocaleData(zh);
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutComponent,
     ProjectManagementComponent,
     ProjectCreatorComponent,
     MainComponent,
@@ -83,6 +82,7 @@ registerLocaleData(zh);
     NzDropDownModule,
     NzCheckboxModule,
     NzCodeEditorModule,
+    NzToolTipModule,
     AppRoutingModule,
     HttpClientModule
   ],
