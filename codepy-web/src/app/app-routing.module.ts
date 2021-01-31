@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProjectManagementComponent } from './project/project-management/project-management.component';
-import { ProjectCreatorComponent } from './project/project-creator/project-creator.component';
-import { MainComponent } from './main/main.component';
+import { HomeComponent } from './ui/home/home.component';
+import { ProjectManagementComponent } from './ui/project/project-management/project-management.component';
+import { ProjectCreatorComponent } from './ui/project/project-creator/project-creator.component';
+import { MainComponent } from './ui/main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
 
 const routes: Routes = [

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { ProjectService } from './../../service/project.service'
+import { ProjectService } from './../../../service/project.service'
 
 
 @Component({
