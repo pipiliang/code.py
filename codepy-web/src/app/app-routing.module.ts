@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './ui/home/home.component';
 import { ProjectManagementComponent } from './ui/project/project-management/project-management.component';
 import { ProjectCreatorComponent } from './ui/project/project-creator/project-creator.component';
 import { MainComponent } from './ui/main/main.component';
@@ -11,8 +10,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'home', component: HomeComponent },
+      { path: '', component: ProjectManagementComponent },
       { path: 'project', component: ProjectManagementComponent },
       { path: 'project-create', component: ProjectCreatorComponent },
     ]

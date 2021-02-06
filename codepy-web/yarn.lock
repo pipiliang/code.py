@@ -255,10 +255,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/cdk@^10.2.4":
-  version "10.2.7"
-  resolved "https://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-10.2.7.tgz?cache=0&sync_timestamp=1607382389650&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40angular%2Fcdk%2Fdownload%2F%40angular%2Fcdk-10.2.7.tgz#0ff82eb91b2653ea26909c57a460d4593b44f186"
-  integrity sha1-D/guuRsmU+omkJxXpGDUWTtE8YY=
+"@angular/cdk@^11.0.2":
+  version "11.1.2"
+  resolved "https://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-11.1.2.tgz#89708a97be340bbfb7d64c84dbc7bb100f77d7ff"
+  integrity sha1-iXCKl740C7+31kyE28e7EA931/8=
   dependencies:
     tslib "^2.0.0"
   optionalDependencies:
@@ -375,10 +375,10 @@
   dependencies:
     "@ctrl/tinycolor" "^3.1.6"
 
-"@ant-design/icons-angular@^10.0.0":
-  version "10.2.0"
-  resolved "https://registry.npm.taobao.org/@ant-design/icons-angular/download/@ant-design/icons-angular-10.2.0.tgz#cf13a6a33b1415934b7331b58cc38fa0653fa374"
-  integrity sha1-zxOmozsUFZNLczG1jMOPoGU/o3Q=
+"@ant-design/icons-angular@^11.0.1":
+  version "11.0.1"
+  resolved "https://registry.npm.taobao.org/@ant-design/icons-angular/download/@ant-design/icons-angular-11.0.1.tgz?cache=0&sync_timestamp=1608543858979&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40ant-design%2Ficons-angular%2Fdownload%2F%40ant-design%2Ficons-angular-11.0.1.tgz#8ff3131f3d9b4b25fd28c64c4a9bdfe36da54942"
+  integrity sha1-j/MTHz2bSyX9KMZMSpvf422lSUI=
   dependencies:
     "@ant-design/colors" "^5.0.0"
     tslib "^2.0.0"
@@ -6542,13 +6542,13 @@ next-tick@~1.0.0:
   resolved "https://registry.npm.taobao.org/next-tick/download/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng-zorro-antd@^10.2.0:
-  version "10.2.0"
-  resolved "https://registry.npm.taobao.org/ng-zorro-antd/download/ng-zorro-antd-10.2.0.tgz#a63247059c2a744383873d0cf66f2741f03ac20f"
-  integrity sha1-pjJHBZwqdEODhz0M9m8nQfA6wg8=
+ng-zorro-antd@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.npm.taobao.org/ng-zorro-antd/download/ng-zorro-antd-11.1.0.tgz#2b6f982fccc73749d2ba61e60220288e2fb80d3c"
+  integrity sha1-K2+YL8zHN0nSumHmAiAoji+4DTw=
   dependencies:
-    "@angular/cdk" "^10.2.4"
-    "@ant-design/icons-angular" "^10.0.0"
+    "@angular/cdk" "^11.0.2"
+    "@ant-design/icons-angular" "^11.0.1"
     date-fns "^2.10.0"
     resize-observer-polyfill "^1.5.1"
     tslib "^2.0.0"

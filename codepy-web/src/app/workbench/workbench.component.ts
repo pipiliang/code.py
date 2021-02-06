@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { ProjectService } from '../service/project.service';
 import { FileEditorComponent } from './file-editor/file-editor.component';
-import { FileHandleEvent } from './file-tree/filehandler';
+import { FileHandleEvent } from './filehandler';
 
 @Component({
   selector: 'app-workbench',
@@ -14,6 +14,9 @@ export class WorkbenchComponent implements OnInit {
   projectName = '';
   projectDescription = '';
   files = [];
+  siderWidth = 300;
+  contentHeight = 400;
+  id = -1;
   @ViewChild(FileEditorComponent) fileEditor: FileEditorComponent;
 
   constructor(
@@ -28,16 +31,12 @@ export class WorkbenchComponent implements OnInit {
       const p = await this.projectService.getProjectByName(this.projectName);
       this.projectDescription = p.project.description;
       this.files = p.files;
-    }, 500)
+    }, 0);
   }
 
-  onBack() {
+  onBack(): void {
     this.router.navigate(['/project']);
   }
-
-  siderWidth = 300;
-  contentHeight = 400;
-  id = -1;
 
   onSideResize({ width }: NzResizeEvent): void {
     cancelAnimationFrame(this.id);
@@ -46,10 +45,11 @@ export class WorkbenchComponent implements OnInit {
     });
   }
 
-  onContentResize({ height }: NzResizeEvent): void {
+  onEditorResize({ height }: NzResizeEvent): void {
     cancelAnimationFrame(this.id);
     this.id = requestAnimationFrame(() => {
       this.contentHeight = height!;
+      this.fileEditor.resize(height);
     });
   }
 
@@ -57,7 +57,7 @@ export class WorkbenchComponent implements OnInit {
    * 资源管理(tree)的回调事件
    * @param event 
    */
-  fileHandle(event: FileHandleEvent) {
+  fileHandle(event: FileHandleEvent): void {
     this.fileEditor.handleTab(event);
   }
 }

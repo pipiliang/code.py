@@ -1,22 +1,27 @@
 <nz-layout class="custom-base-background">
   <!-- 标题栏 / 菜单栏 -->
-  <div class="custom-base-background header">
-    <nz-page-header (nzBack)="onBack()" nzBackIcon class="site-page-header" [nzTitle]="projectName"
-      [nzSubtitle]="projectDescription" style="height: 60px;">
-      <nz-avatar nz-page-header-avatar nzIcon="codepen" [nzShape]="'square'">
-      </nz-avatar>
-    </nz-page-header>
+  <div class="header" style="float: left; display: flex;">
+    <div style="width: 35px; height: 35px; background-color: darkorange;"></div>
+    <label style="height: 29px; line-height: 35px; margin: 0 10px 0 10px; cursor: pointer;" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">File</label>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>Save</li>
+        <li nz-menu-item>Save All</li>
+        <li nz-menu-item (click)="onBack()">Exit</li>
+      </ul>
+    </nz-dropdown-menu>
+    
   </div>
   <!-- 编辑部分 -->
   <nz-layout class="custom-base-background">
     <!-- 资源管理器 -->
-    <nz-sider class="custom-base-background" [nzWidth]="siderWidth" nz-resizable [nzMinWidth]="53" [nzMaxWidth]="600"
-      (nzResize)="onSideResize($event)">
+    <nz-sider class="custom-base-background" [nzWidth]="siderWidth" nz-resizable [nzMinWidth]="53" [nzMaxWidth]="600" (nzResize)="onSideResize($event)">
       <!-- resize -->
       <nz-resize-handle nzDirection="right">
         <div class="sider-resize-line"></div>
       </nz-resize-handle>
       <!-- 侧边栏中的分类区域 -->
+      <!-- todo 需要重构 -->
       <nz-tabset [nzTabPosition]="'left'" style="height: 100%;">
         <nz-tab [nzTitle]="fileTabTemplate">
           <ng-template #fileTabTemplate>
@@ -35,19 +40,21 @@
 
     <nz-content>
       <!-- 输入区域：编辑器 -->
-      <div nz-resizable class="resizable-box border-bottom" [style.height.px]="contentHeight" [nzMaxHeight]="500" [nzMinHeight]="100" 
-        (nzResize)="onContentResize($event)">
+      <div nz-resizable class="resizable-box border-bottom" [style.height.px]="contentHeight" [nzMinHeight]="100" (nzResize)="onEditorResize($event)">
+
         <nz-resize-handle nzDirection="bottom">
           <div class="content-resize-line"></div>
         </nz-resize-handle>
-
+        <!-- 文件编辑器 -->
         <app-file-editor #fileEditor></app-file-editor>
-        
+
       </div>
+
       <!-- 输出区域：控制台 -->
-      <div style="min-height: 50px;" class="nz-footer">
-        Content 2
+      <div>
+        Output
       </div>
+
     </nz-content>
   </nz-layout>
 

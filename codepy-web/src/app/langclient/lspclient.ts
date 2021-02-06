@@ -7,15 +7,15 @@ import {
     ErrorAction,
     MonacoServices,
     createConnection
-} from "monaco-languageclient";
+} from 'monaco-languageclient';
 
 const ReconnectingWebSocket = require('reconnecting-websocket');
 
 export class LSPClient {
 
-    public static connect(editor: any, name: string) {
+    public static connect(editor: any, name: string): void {
         let url = '';
-        if (name.toLowerCase().endsWith(".py")) {
+        if (name.toLowerCase().endsWith('.py')) {
             url = URLs.PYTHON_WS;
         } else {
             // 其他不支持
@@ -47,7 +47,7 @@ export class LSPClient {
 
             connectionProvider: {
                 get: (errorHandler, closeHandler) => {
-                    return Promise.resolve(createConnection(<any>connection, errorHandler, closeHandler));
+                    return Promise.resolve(createConnection(connection as any, errorHandler, closeHandler));
                 }
             }
         });

@@ -7,6 +7,11 @@
   --border-color: #f0f0f0;
 }
 
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .inner-content {
   padding: 15px 24px 24px 24px;
   margin-top: 24px;
@@ -18,4 +23,14 @@ $bgcolor: #fff;
 
 .custom-base-background {
   background: $bgcolor;
+}
+
+
+// 覆盖 ant 的样式
+.ant-tabs-tabpane {
+  padding: 0 !important;
+}
+
+.ant-collapse-content-box {
+  padding: 0 !important;
 }

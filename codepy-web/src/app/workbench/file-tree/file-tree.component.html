@@ -1,22 +1,43 @@
-<nz-tree nzBlockNode [nzData]="files" (nzClick)="activeNode($event)"
-    [nzBlockNode]="true" [nzTreeTemplate]="nzTreeTemplate"></nz-tree>
-<ng-template #nzTreeTemplate let-node let-origin="origin">
-    <span class="custom-node">
-        <!-- 目录 -->
-        <span *ngIf="!node.isLeaf" (contextmenu)="contextMenu($event, menu)">
-            <i nz-icon [nzType]="node.isExpanded ? 'folder-open' : 'folder'" style="color:#1890ff;" (click)="openFolder(node)"></i>
-            <span class="folder-name">{{ node.title }}</span>
-        </span>
-        <!-- 文件 -->
-        <span *ngIf="node.isLeaf" (contextmenu)="contextMenu($event, menu)">
-            <i nz-icon nzType="file"></i>
-            <span class="file-name">{{ node.title }}</span>
-        </span>
-    </span>
-</ng-template>
-<nz-dropdown-menu #menu="nzDropdownMenu">
-    <ul nz-menu>
-        <li nz-menu-item (click)="selectDropdown()">Rename</li>
-        <li nz-menu-item (click)="selectDropdown()">Delete</li>
-    </ul>
-</nz-dropdown-menu>
+<nz-collapse>
+    <nz-collapse-panel [nzHeader]="projectName" [nzActive]="true" [nzExtra]="extraTpl">
+        <ng-template #extraTpl>
+            <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" (click)="$event.stopPropagation()">
+                <i nz-icon nzType="menu"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item>New File</li>
+                    <li nz-menu-item>New Folder</li>
+                </ul>
+            </nz-dropdown-menu>
+        </ng-template>
+ 
+        <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" [nzDirectoryTree]="true">
+            <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding (contextmenu)="contextMenu($event, menu)">
+                <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
+                <nz-tree-node-option [nzSelected]="selectListSelection.isSelected(node)" (nzClick)="selectListSelection.toggle(node); clickFile(node)">
+                    <i nz-icon nzType="file" nzTheme="outline"></i>
+                    {{ node.name }}
+                </nz-tree-node-option>
+            </nz-tree-node>
+
+            <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding (contextmenu)="contextMenu($event, menu)">
+                <nz-tree-node-toggle>
+                    <i nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></i>
+                </nz-tree-node-toggle>
+                <nz-tree-node-option [nzSelected]="selectListSelection.isSelected(node)" (nzClick)="selectListSelection.toggle(node); clickFolder(node)">
+                    <i nz-icon [nzType]="treeControl.isExpanded(node) ? 'folder-open' : 'folder'" nzTheme="outline"></i>
+                    {{ node.name }}
+                </nz-tree-node-option>
+            </nz-tree-node>
+        </nz-tree-view>
+
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item (click)="selectDropdown()">Rename</li>
+                <li nz-menu-item (click)="selectDropdown()">Delete</li>
+            </ul>
+        </nz-dropdown-menu>
+
+    </nz-collapse-panel>
+</nz-collapse>

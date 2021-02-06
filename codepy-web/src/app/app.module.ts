@@ -12,7 +12,6 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { HomeComponent } from './ui/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { ProjectManagementComponent } from './ui/project/project-management/project-management.component';
@@ -31,10 +30,12 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
-import { NzTreeModule } from 'ng-zorro-antd/tree';
+// import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { ProjectCreatorComponent } from './ui/project/project-creator/project-creator.component';
 import { MainComponent } from './ui/main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
@@ -46,7 +47,6 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     ProjectManagementComponent,
     ProjectCreatorComponent,
     MainComponent,
@@ -78,10 +78,12 @@ registerLocaleData(zh);
     NzPageHeaderModule,
     NzTabsModule,
     NzResizableModule,
-    NzTreeModule,
+    // NzTreeModule,
+    NzTreeViewModule,
     NzDropDownModule,
     NzCheckboxModule,
     NzCodeEditorModule,
+    NzCollapseModule,
     NzToolTipModule,
     AppRoutingModule,
     HttpClientModule
