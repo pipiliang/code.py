@@ -2,12 +2,19 @@
   <!-- 标题栏 / 菜单栏 -->
   <div class="header" style="float: left; display: flex;">
     <div style="width: 35px; height: 35px; background-color: darkorange;"></div>
-    <label style="height: 29px; line-height: 35px; margin: 0 10px 0 10px; cursor: pointer;" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">File</label>
-    <nz-dropdown-menu #menu="nzDropdownMenu">
+    <label style="height: 29px; line-height: 35px; margin: 0 10px 0 10px; cursor: pointer;" nz-dropdown nzTrigger="click" [nzDropdownMenu]="fileMenu">File</label>
+    <nz-dropdown-menu #fileMenu="nzDropdownMenu">
       <ul nz-menu>
         <li nz-menu-item>Save</li>
         <li nz-menu-item>Save All</li>
+        <app-separator></app-separator>
         <li nz-menu-item (click)="onBack()">Exit</li>
+      </ul>
+    </nz-dropdown-menu>
+    <label style="height: 29px; line-height: 35px; margin: 0 10px 0 10px; cursor: pointer;" nz-dropdown nzTrigger="click" [nzDropdownMenu]="helpMenu">Help</label>
+    <nz-dropdown-menu #helpMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>About</li>
       </ul>
     </nz-dropdown-menu>
     

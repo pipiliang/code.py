@@ -7,6 +7,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
 
+/**
+ * 树上的数据结构
+ */
 interface FileTreeNode {
   expandable: boolean;
   name: string;
@@ -14,6 +17,9 @@ interface FileTreeNode {
   level: number;
 }
 
+/**
+ * 原始文件节点
+ */
 interface FileNode {
   children?: FileNode[];
   path: string;
@@ -31,6 +37,8 @@ export class FileTreeComponent implements OnInit {
   @Input() projectName = '';
   @Output() fileHandleEvent = new EventEmitter<FileHandleEvent>();
 
+  flatNodeMap = new Map<FileTreeNode, FileNode>();
+  nestedNodeMap = new Map<FileNode, FileTreeNode>();
   selectListSelection = new SelectionModel<FileTreeNode>();
 
   treeControl = new FlatTreeControl<FileTreeNode>(
@@ -39,12 +47,20 @@ export class FileTreeComponent implements OnInit {
   );
 
   treeFlattener = new NzTreeFlattener((node: FileNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.title,
-      path: node.path,
-      level
-    };
+    const existingFileTreeNode = this.nestedNodeMap.get(node);
+    const flatNode = existingFileTreeNode && existingFileTreeNode.path === node.path
+      ? existingFileTreeNode
+      : {
+        expandable: !!node.children && node.children.length > 0,
+        name: node.title,
+        path: node.path,
+        level
+      };
+
+    flatNode.name = node.title;
+    this.flatNodeMap.set(flatNode, node);
+    this.nestedNodeMap.set(node, flatNode);
+    return flatNode;
   },
     node => node.level,
     node => node.expandable,
@@ -52,6 +68,9 @@ export class FileTreeComponent implements OnInit {
   );
 
   dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: FileTreeNode) => node.expandable;
+  hasNoContent = (_: number, node: FileTreeNode) => node.name === '';
+  // trackBy = (_: number, node: FileTreeNode) => `${node.path}-${node.name}`;
 
   constructor(
     private nzContextMenuService: NzContextMenuService,
@@ -91,13 +110,45 @@ export class FileTreeComponent implements OnInit {
     }
   }
 
-  hasChild = (_: number, node: FileTreeNode) => node.expandable;
-
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
     this.nzContextMenuService.create($event, menu);
   }
 
   selectDropdown(): void {
     // do something
+  }
+
+  createFile(node: FileTreeNode): void {
+    const parentNode = this.flatNodeMap.get(node);
+    if (parentNode) {
+      parentNode.children = parentNode.children || [];
+      parentNode.children.push({
+        title: '',
+        path: parentNode.path
+      });
+      this.dataSource.setData(this.files);
+      this.treeControl.expand(node);
+    }
+  }
+
+  saveNode(node: FileTreeNode, value: string): void {
+    const nestedNode = this.flatNodeMap.get(node);
+    if (nestedNode) {
+      nestedNode.title = value;
+      nestedNode.path = nestedNode.path + '/' + value;
+      this.dataSource.setData(this.files);
+    }
+  }
+
+  createFolder(node: FileTreeNode): void {
+
+  }
+
+  rename(node: FileTreeNode): void {
+
+  }
+
+  delete(node: FileTreeNode): void {
+
   }
 }

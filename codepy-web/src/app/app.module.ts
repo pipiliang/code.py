@@ -30,7 +30,6 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzResizableModule } from 'ng-zorro-antd/resizable';
-// import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
@@ -41,12 +40,14 @@ import { MainComponent } from './ui/main/main.component';
 import { WorkbenchComponent } from './workbench/workbench.component';
 import { FileTreeComponent } from './workbench/file-tree/file-tree.component';
 import { FileEditorComponent } from './workbench/file-editor/file-editor.component';
+import { SeparatorComponent } from './shared/separator';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
+    SeparatorComponent,
     ProjectManagementComponent,
     ProjectCreatorComponent,
     MainComponent,
@@ -78,7 +79,6 @@ registerLocaleData(zh);
     NzPageHeaderModule,
     NzTabsModule,
     NzResizableModule,
-    // NzTreeModule,
     NzTreeViewModule,
     NzDropDownModule,
     NzCheckboxModule,
