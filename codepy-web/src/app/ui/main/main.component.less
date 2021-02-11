@@ -1,0 +1,47 @@
+@import "mixin";
+
+.themeMixin({
+  :host {
+    .custom-base-background {
+      background: @component-background;
+    }
+  }
+});
+
+@line-height: 64px;
+@margin : 50px;
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: orange;
+  margin: 16px 24px 16px 0;
+  float: left;
+  margin-left: @margin;
+}
+
+[toolbar] {
+  float: right;
+  margin-right: @margin;
+}
+
+[nz-menu] {
+  line-height: @line-height;
+}
+
+[header] {
+  line-height: @line-height;
+  height: @line-height;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 0 50px;
+}
+
+nz-footer {
+  text-align: center;
+}

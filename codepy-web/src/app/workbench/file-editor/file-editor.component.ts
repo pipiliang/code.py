@@ -6,7 +6,7 @@ import { editor } from 'monaco-editor';
 @Component({
   selector: 'app-file-editor',
   templateUrl: './file-editor.component.html',
-  styleUrls: ['./file-editor.component.scss']
+  styleUrls: ['./file-editor.component.less']
 })
 export class FileEditorComponent implements OnInit {
 

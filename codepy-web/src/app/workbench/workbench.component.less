@@ -1,0 +1,40 @@
+@import "mixin";
+
+.themeMixin( {
+    :host {
+      .custom-base-background {
+        background: @component-background;
+      }
+      
+      @bgcolor: @border-color-split;
+
+      .border-bottom,
+      .header {
+        border-bottom: solid 1px @bgcolor;
+      }
+
+      .header {
+        height: 35px;
+      }
+
+      .footer {
+        border-top: solid 1px @bgcolor;
+        height: 30px;
+      }
+
+      nz-sider {
+        border-right: solid 1px @bgcolor;
+      }
+
+    }
+  }
+
+);
+
+nz-layout {
+  height: 100%;
+}
+
+nz-layout:last-child {
+  margin: 0;
+}

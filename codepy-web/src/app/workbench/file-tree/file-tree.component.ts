@@ -29,7 +29,7 @@ interface FileNode {
 @Component({
   selector: 'app-file-tree',
   templateUrl: './file-tree.component.html',
-  styleUrls: ['./file-tree.component.scss']
+  styleUrls: ['./file-tree.component.less']
 })
 export class FileTreeComponent implements OnInit {
 

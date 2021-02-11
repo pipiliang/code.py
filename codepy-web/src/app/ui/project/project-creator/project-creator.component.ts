@@ -4,13 +4,12 @@ import { ProjectService } from 'src/app/service/project.service';
 
 @Component({
   selector: 'app-project-creator',
-  templateUrl: './project-creator.component.html',
-  styleUrls: ['./project-creator.component.scss']
+  templateUrl: './project-creator.component.html'
 })
 export class ProjectCreatorComponent implements OnInit {
   validateForm!: FormGroup;
   hideFrom = false;
-  result = "No";
+  result = 'No';
   checked = true;
 
   constructor(private fb: FormBuilder, private projectService: ProjectService) { }
@@ -23,7 +22,7 @@ export class ProjectCreatorComponent implements OnInit {
     });
   }
 
-  async submitForm() {
+  async submitForm(): Promise<void> {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -31,11 +30,10 @@ export class ProjectCreatorComponent implements OnInit {
     try {
       this.hideFrom = true;
       await this.projectService.createProject(this.validateForm.value);
-      this.result = "success";
+      this.result = 'success';
     } catch (error) {
-      this.result = "failed";
+      this.result = 'failed';
     }
-   
   }
 
 }

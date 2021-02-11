@@ -8,7 +8,7 @@ import { FileHandleEvent } from './filehandler';
 @Component({
   selector: 'app-workbench',
   templateUrl: './workbench.component.html',
-  styleUrls: ['./workbench.component.scss']
+  styleUrls: ['./workbench.component.less']
 })
 export class WorkbenchComponent implements OnInit {
   projectName = '';
