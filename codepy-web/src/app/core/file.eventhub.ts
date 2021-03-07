@@ -1,7 +1,7 @@
 import { EventHub } from './eventhub';
 
 // 操作类型
-export enum OperateType {
+enum FileTreeOperateType {
     Open = 'Open',
     Close = 'Close',
     Add = 'Add',
@@ -10,15 +10,16 @@ export enum OperateType {
 }
 
 // 文件操作事件
-export interface FileHandleEvent {
-    type: OperateType;
-    fileName: string;
-    filePath: string;
-    content: string;
+interface FileTreeOperateEvent {
+    type: FileTreeOperateType;
+    name: string;
+    path: string;
+    projectName: string;
 }
 
-const FileEventHub = new EventHub<FileHandleEvent>();
+const FileEventHub = new EventHub<FileTreeOperateEvent, void>();
+const FileTreeOperateTopic = 'FileTreeOperateTopic';
 
-export { FileEventHub };
+export { FileEventHub, FileTreeOperateTopic, FileTreeOperateType, FileTreeOperateEvent };
 
 

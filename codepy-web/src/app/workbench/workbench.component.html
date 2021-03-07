@@ -35,7 +35,7 @@
             <i nz-icon [nzType]="'file'" style="width:0; font-size:1.5em; margin-left:-8px; padding-top: 5px;"></i>
           </ng-template>
           <!-- 资源管理器 -->
-          <app-file-tree [files]="files" [projectName]="projectName" (fileHandleEvent)="fileHandle($event)"></app-file-tree>
+          <app-file-tree [files]="files" [projectName]="projectName"></app-file-tree>
         </nz-tab>
         <nz-tab [nzTitle]="searchTabTemplate">
           <ng-template #searchTabTemplate>

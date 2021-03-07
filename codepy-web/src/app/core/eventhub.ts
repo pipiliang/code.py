@@ -1,47 +1,53 @@
+/**
+ * 回调函数类型定义
+ */
+type Callback<T, R> = (data: T, ...args: any[]) => R;
 
-interface Publisher<T> {
-    subscriber: string;
-    data: T;
-}
+/**
+ * 简单的事件订阅
+ * T: 传递数据的泛型类型
+ * R: 返回数据的泛型类型
+ */
+export class EventHub<T, R> {
+    private subjects: { [key: string]: Array<Callback<T, R>> } = {};
 
-interface EventChannel<T> {
-    on: (subscriber: string, callback: () => void) => void;
-    off: (subscriber: string, callback: () => void) => void;
-    emit: (subscriber: string, data: T) => void;
-}
-
-interface Subscriber {
-    subscriber: string;
-    callback: () => void;
-}
-
-
-export class EventHub<T> implements EventChannel<T> {
-
-    private subjects: { [key: string]: Array<Function> } = {};
-
-    public on(subscriber: string, callback: () => void): void {
-        console.log(`收到订阅信息，订阅事件：${subscriber}`);
-        if (!this.subjects[subscriber]) {
-            this.subjects[subscriber] = [];
+    /**
+     * 开始监听某个 topic
+     * @param topic 监听的主题
+     * @param callback 监听到主题的回调函数
+     */
+    public on(topic: string, callback: Callback<T, R>): void {
+        if (!this.subjects[topic]) {
+            this.subjects[topic] = [];
         }
-        this.subjects[subscriber].push(callback);
+        this.subjects[topic].push(callback);
     }
 
-    public off(subscriber: string, callback: () => void): void {
-        console.log(`收到取消订阅请求，需要取消的订阅事件：${subscriber}`);
+    /**
+     * 关闭监听某个 topic
+     * @param topic 监听的主题
+     * @param callback 监听到主题的回调函数
+     */
+    public off(topic: string, callback: Callback<T, R>): void {
         if (callback === null) {
-            this.subjects[subscriber] = [];
+            this.subjects[topic] = [];
         } else {
-            const index: number = this.subjects[subscriber].indexOf(callback);
+            const index: number = this.subjects[topic].indexOf(callback);
             if (index > -1) {
-                this.subjects[subscriber].splice(index, 1);
+                this.subjects[topic].splice(index, 1);
             }
         }
     }
 
-    public emit(subscriber: string, data: T): void {
-        console.log(`收到发布者信息，执行订阅事件：${subscriber}`);
-        this.subjects[subscriber].forEach(item => item(data));
+    /**
+     * 发送数据
+     * @param topic 发送的主题
+     * @param data 数据内容
+     */
+    public emit(topic: string, data: T, ...args: any[]): void {
+        this.subjects[topic].forEach(callback => {
+           const r: R = callback(data, args);
+           // 返回值如何使用？过度设计了？
+        });
     }
 }

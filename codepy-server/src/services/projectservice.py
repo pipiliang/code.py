@@ -112,9 +112,8 @@ class FileService:
 
     @staticmethod
     def get_file(data):
-        data_json = json.loads(data)
-        project_name = data_json.get("projectName")
-        related_path = data_json.get("path")
+        project_name = data.get("projectName")
+        related_path = data.get("path")
         file_path = PathUtil.get_file_path(project_name, related_path)
 
         content = ''

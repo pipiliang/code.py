@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 from flask import request, Response
 from flask.views import MethodView
 from services.projectservice import ProjectService, FileService
@@ -37,4 +38,12 @@ class FileAPI(MethodView):
     def post(self):
         if not request.data:
             return ('fail')
-        return FileService.get_file(request.data)
+        
+        data_json = json.loads(request.data)
+        print(data_json)
+        type = data_json.get("type")
+        print(type)
+        if type == 'Open':
+            return FileService.get_file(data_json)
+        if type is 'Add':
+            return

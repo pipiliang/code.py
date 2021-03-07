@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzFormatEmitEvent, NzTreeNode } from 'ng-zorro-antd/tree';
 import { FileService } from './../../service/file.service';
-import { FileHandleEvent, FileHandleType } from '../filehandler';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
+import { FileEventHub, FileTreeOperateTopic, FileTreeOperateType } from '../../core/file.eventhub';
 
 /**
  * 树上的数据结构
@@ -35,7 +34,6 @@ export class FileTreeComponent implements OnInit {
 
   @Input() files = [];
   @Input() projectName = '';
-  @Output() fileHandleEvent = new EventEmitter<FileHandleEvent>();
 
   flatNodeMap = new Map<FileTreeNode, FileNode>();
   nestedNodeMap = new Map<FileNode, FileTreeNode>();
@@ -70,7 +68,6 @@ export class FileTreeComponent implements OnInit {
   dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
   hasChild = (_: number, node: FileTreeNode) => node.expandable;
   hasNoContent = (_: number, node: FileTreeNode) => node.name === '';
-  // trackBy = (_: number, node: FileTreeNode) => `${node.path}-${node.name}`;
 
   constructor(
     private nzContextMenuService: NzContextMenuService,
@@ -84,21 +81,17 @@ export class FileTreeComponent implements OnInit {
     }, 500);
   }
 
-  async clickFile(data: FileTreeNode): Promise<void> {
-    console.log(data);
-    const resp = await this.fileService.getFile({
-      projectName: this.projectName,
-      path: data.path
+  /**
+   * 点击文件
+   * @param data 文件信息
+   */
+  clickFile(data: FileTreeNode): void {
+    FileEventHub.emit(FileTreeOperateTopic, {
+      type: FileTreeOperateType.Open,
+      name: data.name,
+      path: data.path,
+      projectName: this.projectName
     });
-    console.log(resp);
-    this.fileHandleEvent.emit(
-      {
-        type: FileHandleType.Open,
-        fileName: data.name,
-        filePath: resp.path,
-        content: resp.content
-      }
-    );
   }
 
   clickFolder(node: FileTreeNode): void {
@@ -112,10 +105,6 @@ export class FileTreeComponent implements OnInit {
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
     this.nzContextMenuService.create($event, menu);
-  }
-
-  selectDropdown(): void {
-    // do something
   }
 
   createFile(node: FileTreeNode): void {
@@ -136,7 +125,9 @@ export class FileTreeComponent implements OnInit {
     if (nestedNode) {
       nestedNode.title = value;
       nestedNode.path = nestedNode.path + '/' + value;
+      // 通过接口创建
       this.dataSource.setData(this.files);
+      // 通知创建了文件
     }
   }
 

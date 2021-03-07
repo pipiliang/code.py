@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { ProjectService } from '../service/project.service';
 import { FileEditorComponent } from './file-editor/file-editor.component';
-import { FileHandleEvent } from './filehandler';
 
 @Component({
   selector: 'app-workbench',
@@ -51,13 +50,5 @@ export class WorkbenchComponent implements OnInit {
       this.contentHeight = height!;
       this.fileEditor.resize(height);
     });
-  }
-
-  /**
-   * 资源管理(tree)的回调事件
-   * @param event 
-   */
-  fileHandle(event: FileHandleEvent): void {
-    this.fileEditor.handleTab(event);
   }
 }

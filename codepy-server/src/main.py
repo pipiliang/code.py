@@ -72,6 +72,6 @@ app.add_url_rule('/files', view_func=files_view)
 
 if __name__ == "__main__":
     server = pywsgi.WSGIServer(
-        ('0.0.0.0', 4201), app, handler_class=WebSocketHandler)
+        ('0.0.0.0', 4202), app, handler_class=WebSocketHandler)
     print('code.py server start ...')
     server.serve_forever()

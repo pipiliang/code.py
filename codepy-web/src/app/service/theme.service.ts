@@ -9,7 +9,7 @@ enum ThemeType {
   providedIn: 'root',
 })
 export class ThemeService {
-  currentTheme = ThemeType.default;
+  private currentTheme = ThemeType.default;
 
   constructor() {}
 

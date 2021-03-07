@@ -1,24 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-import { FileHandleEvent, FileHandleType } from '../filehandler';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LSPClient } from '../../langclient/lspclient';
 import { editor } from 'monaco-editor';
+import { FileEventHub, FileTreeOperateTopic, FileTreeOperateType, FileTreeOperateEvent } from '../../core/file.eventhub';
+import { FileService } from 'src/app/service/file.service';
 
 @Component({
   selector: 'app-file-editor',
   templateUrl: './file-editor.component.html',
   styleUrls: ['./file-editor.component.less']
 })
-export class FileEditorComponent implements OnInit {
+export class FileEditorComponent implements OnInit, OnDestroy {
 
   index = 0;
+  // 定义 tab 数据结构
   tabs = [];
   editorHeight = 358;
   tabHeight = 42;
   editor: editor.ICodeEditor | editor.IEditor;
 
-  constructor() { }
+  constructor(private fileService: FileService) { }
+
+  /**
+   * 响应 FileTree 上的操作。
+   * @param event 文件事件
+   */
+  handleFileTreeOperate = (data: FileTreeOperateEvent): void => {
+    console.log('data', data);
+    // 文件打开
+    if (data.type === FileTreeOperateType.Open) {
+      const index = this.tabs.findIndex(tab => tab.path === data.path);
+      // 如果已经打开则返回
+      if (index > -1) {
+        this.index = index;
+        return;
+      }
+      // 查询文件内容，再渲染
+      this.fileService.handleFile(data).then(resp => {
+        this.addTab({
+          name: data.name,
+          path: data.path,
+          content: resp.content
+        });
+      });
+    }
+  }
 
   ngOnInit(): void {
+    FileEventHub.on(FileTreeOperateTopic, this.handleFileTreeOperate);
+  }
+
+  ngOnDestroy(): void {
+    FileEventHub.off(FileTreeOperateTopic, this.handleFileTreeOperate);
+  }
+
+  addTab(data: any): void {
+    this.tabs.push(data);
+    this.index = this.tabs.length - 1;
   }
 
   closeTab({ index }: { index: number }): void {
@@ -35,28 +72,6 @@ export class FileEditorComponent implements OnInit {
    */
   selectTab(tab): void {
 
-  }
-
-  /**
-   * 响应 FileTree 上的操作，后续优化为 Event 方式。
-   * @param event 文件事件
-   */
-  handleTab(event: FileHandleEvent): void {
-    // 文件打开
-    if (event.type === FileHandleType.Open) {
-      // if open
-      const index = this.tabs.findIndex(tab => tab.path === event.filePath);
-      if (index > -1) {
-        this.index = index;
-        return;
-      }
-      this.tabs.push({
-        name: event.fileName,
-        path: event.filePath,
-        content: event.content
-      });
-      this.index = this.tabs.length - 1;
-    }
   }
 
   /**
