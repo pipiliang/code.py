@@ -24,9 +24,10 @@ class ProjectService():
     def get_project_by_name(project_name):
         # 工程基本信息
         project = ProjectService._read_project_json(project_name)
-        file_tree_json = FileWorker().get_tree_json(
-            PathUtil.get_project_dir(project_name))
+        root = PathUtil.get_project_dir(project_name)
+        file_tree_json = FileWorker().get_tree_json(root)
         project_file_tree = {
+            'root': root,
             'project': project,
             'files': file_tree_json
         }

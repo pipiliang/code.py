@@ -26,7 +26,7 @@ export class ProjectManagementComponent implements OnInit {
       this.loading = true;
       this.projects = await this.projectService.getProjects();
       this.loading = false;
-    }, 500)
+    }, 500);
 
   }
 
